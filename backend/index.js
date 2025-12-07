@@ -63,6 +63,9 @@ const appointmentSchema = new mongoose.Schema({
 });
 const Appointment = mongoose.model("Appointment", appointmentSchema);
 
+app.get("/", (req, res) => {
+  res.json("Hello");
+})
 // ====== ROUTES ======
 
 // Register
