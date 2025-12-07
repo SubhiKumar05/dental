@@ -11,7 +11,7 @@ const DoctorProfile = () => {
     
     const fetchDoctors = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/doctors');
+        const response = await axios.get('https://dental-backend-one.vercel.app/doctors');
         setDoctors(response.data);
       } catch (error) {
         console.error("Failed to fetch doctors:", error);

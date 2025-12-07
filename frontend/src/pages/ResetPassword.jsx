@@ -33,7 +33,7 @@ const ResetPassword = () => {
   const email = localStorage.getItem("resetEmail");
 
   try {
-    const res = await fetch("http://localhost:5000/resetpassword", {
+    const res = await fetch("https://dental-backend-one.vercel.app/resetpassword", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
