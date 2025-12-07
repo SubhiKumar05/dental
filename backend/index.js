@@ -24,7 +24,7 @@ mongoose
   .connect(MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB Connected");
-    preloadDoctors();
+    //preloadDoctors();
   })
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
