@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "https://dental-frontend-eta.vercel.app", // Will need to be updated to your frontend's deployed URL
+    origin: ["https://dental-frontend-eta.vercel.app", "https://dental-ruddy-omega.vercel.app"], // Will need to be updated to your frontend's deployed URL
     methods: ["GET", "POST"],
     credentials: true,
   })
