@@ -10,7 +10,7 @@ const Footer = () => (
           <h5>Main Branch</h5>
           <p>
             Pristine Pearls Dental Clinic<br />
-            123 Smile Avenue, City Center, Metropolis
+            Old Hospital Road, Opposite Daily Market, Aranthangi-614616
           </p>
           <p>
             Email: <a href="mailto:contact@pristinepearls.com" className="text-white">contact@pristinepearls.com</a><br />
@@ -20,9 +20,9 @@ const Footer = () => (
         <div className="col-md-6 mb-3">
           <h5>Other Branches</h5>
           <p>
-            <strong>Branch 1:</strong> 45 Wellness Street<br />
-            <strong>Branch 2:</strong> 78 Dental Lane<br />
-            <strong>Branch 3:</strong> 90 Ortho Road
+            <strong>Branch 1:</strong> Thiruvanmyur<br />
+            <strong>Branch 2:</strong> Chromepet<br />
+            <strong>Branch 3:</strong> Tambaram
           </p>
         </div>
       </div>
