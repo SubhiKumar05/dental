@@ -5,19 +5,19 @@ const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const app = express();
-// PORT is generally ignored by Vercel in favor of its own port setting
 
-// Middleware
+
+
 app.use(
   cors({
-    origin: ["https://dental-frontend-eta.vercel.app", "https://dental-ruddy-omega.vercel.app"], // Will need to be updated to your frontend's deployed URL
+    origin: ["https://dental-frontend-eta.vercel.app", "https://dental-ruddy-omega.vercel.app"], 
     methods: ["GET", "POST"],
     credentials: true,
   })
 );
 app.use(express.json());
 
-// MongoDB Connection
+
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/dentalapp";
 
 mongoose
@@ -29,8 +29,7 @@ mongoose
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 
-// ====== SCHEMAS AND MODELS (Omitted for brevity, assume they are here) ======
-// ... (userSchema, doctorSchema, appointmentSchema, User, Doctor, Appointment) ...
+
 const userSchema = new mongoose.Schema({
     name: String,
     email: { type: String, unique: true },
@@ -44,9 +43,9 @@ const doctorSchema = new mongoose.Schema({
     service: String,
     availability: [
         {
-            day: String, // "Mon", "Tue", etc.
-            startTime: String, // "HH:MM"
-            endTime: String,   // "HH:MM"
+            day: String, 
+            startTime: String,
+            endTime: String,   
         },
     ],
 });
@@ -58,8 +57,8 @@ const appointmentSchema = new mongoose.Schema({
     service: String,
     userName: String,
     userEmail: String,
-    date: String, // "YYYY-MM-DD"
-    time: String, // "HH:MM"
+    date: String, 
+    time: String, 
     createdAt: { type: Date, default: Date.now },
 });
 const Appointment = mongoose.model("Appointment", appointmentSchema);
@@ -67,8 +66,7 @@ const Appointment = mongoose.model("Appointment", appointmentSchema);
 app.get("/", (req, res) => {
   res.json("Hello");
 })
-// ====== ROUTES (Omitted for brevity, assume they are here) ======
-// ... (All app.post/app.get routes) ...
+
 
 app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
@@ -131,7 +129,7 @@ app.post("/resetpassword", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Hash the new password
+    
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
     await user.save();
@@ -156,10 +154,10 @@ app.post("/appointment", async (req, res) => {
       return res.status(404).json({ message: "Doctor not found" });
     }
 
-    // Get day of week from date
+    
     const appointmentDay = new Date(date).toLocaleDateString("en-US", { weekday: "short" }); // e.g., "Mon"
 
-    // Match day with availability
+    
     const availableSlot = doctor.availability.find(slot => slot.day === appointmentDay);
 
     if (!availableSlot) {
@@ -168,7 +166,7 @@ app.post("/appointment", async (req, res) => {
       });
     }
 
-    // Validate time within range
+    
     const isTimeValid = time >= availableSlot.startTime && time <= availableSlot.endTime;
 
     if (!isTimeValid) {
@@ -177,7 +175,7 @@ app.post("/appointment", async (req, res) => {
       });
     }
 
-    // Prevent duplicate booking at same time
+    
     const existingAppointment = await Appointment.findOne({ doctorId, date, time });
     if (existingAppointment) {
       return res.status(409).json({ message: "Doctor already has an appointment at this time" });
@@ -212,7 +210,7 @@ app.get("/appointments", async (req, res) => {
 });
 
 
-// ====== PRELOAD DOCTORS ======
+
 async function preloadDoctors() {
   const count = await Doctor.countDocuments();
   if (count > 0) return;
@@ -273,7 +271,5 @@ async function preloadDoctors() {
   console.log("✅ Doctors preloaded");
 }
 
-// ===================================
-// 💡 VERCEL/SERVERLESS EXPORT
-// ===================================
+
 module.exports = app;

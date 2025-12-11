@@ -60,7 +60,7 @@ const AppointmentForm = () => {
 
       alert(response.data.message);
       sessionStorage.setItem('appointmentData', JSON.stringify(formData));
-      navigate('/landing'); // Replace with your confirmation route
+      navigate('/landing'); 
     } catch (err) {
       console.error('Error booking appointment:', err);
       alert(err.response?.data?.message || 'Failed to book appointment');
